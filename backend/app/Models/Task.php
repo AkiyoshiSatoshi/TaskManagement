@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use App\Enums\TaskStatus;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -26,6 +27,11 @@ class Task extends Model
         'task_status_name',
     ];
 
+    public function getTaskStatusNameAttribute(): string
+    {
+        return TaskStatus::from($this->status)->label();
+    }
+    
     public function project(): BelongsTo
     {
         return $this->belongsTo(Project::class);
