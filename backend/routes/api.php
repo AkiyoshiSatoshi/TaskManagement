@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AccountController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\ProjectUserController;
 use App\Http\Controllers\SubtaskController;
@@ -21,4 +22,6 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function () {
     Route::delete('/projects/{project}/users/{user}', [ProjectUserController::class, 'destroy']);
     Route::apiResource('users', UserController::class);
     Route::apiResource('tasks.subtasks', SubtaskController::class)->shallow();
+    Route::get('/my/account', [AccountController::class, 'fetchMyAccount']);
+    Route::put('/my/account', [AccountController::class, 'updateMyAccount']);
 });
